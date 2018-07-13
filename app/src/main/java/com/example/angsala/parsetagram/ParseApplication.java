@@ -14,8 +14,8 @@ public class ParseApplication extends Application {
     final Parse.Configuration configuration =
         new Parse.Configuration.Builder(this)
             .applicationId("angsala")
-            .clientKey(this.getString(R.string.APP_ID)) // password
-            .server(this.getString(R.string.server)) // server
+            .clientKey("5505-master-key") // password
+            .server("http://amvs-parsetagram.herokuapp.com/parse") // server
             .build();
 
     Parse.initialize(configuration);

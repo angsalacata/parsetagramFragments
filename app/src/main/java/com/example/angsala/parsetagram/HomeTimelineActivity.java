@@ -1,13 +1,14 @@
 package com.example.angsala.parsetagram;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,7 +19,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.angsala.parsetagram.models.Post;
 import com.parse.ParseException;
@@ -49,6 +49,8 @@ public class HomeTimelineActivity extends AppCompatActivity {
     return true;
   }
 
+
+
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
@@ -77,12 +79,14 @@ public class HomeTimelineActivity extends AppCompatActivity {
 
     ParseObject.registerSubclass(Post.class);
 
+    //identifying fragment by id
+
     inputDescription = (EditText) findViewById(R.id.inputDescription);
     // buttonRefresh = (Button) findViewById(R.id.buttonRefresh);
-    buttonCreate = (Button) findViewById(R.id.buttonCreate);
+    buttonCreate = (Button) findViewById(R.id.fragmentButtonCreate);
     buttonFeed = (Button) findViewById(R.id.buttonFeed);
 
-    getSupportActionBar().setTitle("Create a post");
+    getSupportActionBar().setTitle("(F)instagram");
 
     // test for persistence
     ParseUser test_current_user = ParseUser.getCurrentUser();
@@ -93,6 +97,7 @@ public class HomeTimelineActivity extends AppCompatActivity {
       startActivity(logIn_intent);
       finish();
     }
+
 
     buttonCreate.setOnClickListener(
         new View.OnClickListener() {
@@ -120,7 +125,7 @@ public class HomeTimelineActivity extends AppCompatActivity {
           @Override
           public void onClick(View view) {
             Intent feedIntent = new Intent(HomeTimelineActivity.this, FeedActivity.class);
-            startActivity(feedIntent);
+           // startActivity(feedIntent);
           }
         });
 
@@ -131,6 +136,37 @@ public class HomeTimelineActivity extends AppCompatActivity {
           @Override
           public void onClick(View view) {
             dispatchTakePictureIntent();
+          }
+        });
+
+    bottomNavigation();
+  }
+
+  //Work with fragments, this should hopefully go to the feed
+  public void bottomNavigation(){
+    BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+//    final FragmentManager fragmentManager = getSupportFragmentManager();
+//    final Fragment fragmentFeed = new FeedFragment();
+
+    //put a listener on bottom
+    bottomNavigationView.setOnNavigationItemSelectedListener(
+        new BottomNavigationView.OnNavigationItemSelectedListener() {
+          @Override
+          public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+              case R.id.action_feeds:
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.your_placeholder, new FeedFragment());
+                ft.commit();
+                return true;
+              case R.id.action_home:
+                FragmentTransaction fthome = getSupportFragmentManager().beginTransaction();
+                fthome.replace(R.id.your_placeholder,new HomeFragment());
+                fthome.commit();
+                return true;
+            }
+
+            return false;
           }
         });
   }
@@ -166,7 +202,7 @@ public class HomeTimelineActivity extends AppCompatActivity {
             HomeTimelineActivity.this, "com.codepath.fileprovider", photofile);
     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
     if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-      startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+      super.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
     }
   }
 
@@ -181,19 +217,18 @@ public class HomeTimelineActivity extends AppCompatActivity {
   }
 
   // use this to trigger that the file was loaded
-  @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-      Log.d(TAG, "successfully saved photo");
-      // this will still load the pic into an imageview
-      Bitmap image = BitmapFactory.decodeFile(photofile.getAbsolutePath());
-
-      testImage = (ImageView) findViewById(R.id.imvTestGettingCamera);
-      testImage.setImageBitmap(image);
-
-    } else {
-      Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
-    }
+//    if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+//      Log.d(TAG, "successfully saved photo");
+//      // this will still load the pic into an imageview
+//      Bitmap image = BitmapFactory.decodeFile(photofile.getAbsolutePath());
+//
+//      testImage = (ImageView) findViewById(R.id.imvTestGettingCamera);
+//      testImage.setImageBitmap(image);
+//
+//    } else {
+//      Toast.makeText(this, "Picture wasn't taken ACTIVITY!", Toast.LENGTH_SHORT).show();
+//    }
   }
 }

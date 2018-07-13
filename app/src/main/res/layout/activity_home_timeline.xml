@@ -20,6 +20,22 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <!--Place bottom bar-->
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/menu_bottom_navigation" />
+
+
+    <!--Place container for fragments, in a framelayout according to guide on codepath -->
+    <FrameLayout
+        android:id="@+id/your_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
 
     <include
         layout="@layout/content_home_timeline"
@@ -35,16 +51,18 @@
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="59dp"
         android:layout_marginEnd="13dp"
+        android:visibility="gone"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <Button
-        android:id="@+id/buttonCreate"
+        android:id="@+id/fragmentButtonCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="37dp"
         android:layout_marginEnd="64dp"
+        android:visibility="gone"
         android:text="Create" />
 
     <EditText
@@ -55,6 +73,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="157dp"
         android:gravity="top"
+        android:visibility="gone"
         android:imeOptions="actionSend" />
 
     <ImageView
@@ -64,6 +83,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="97dp"
+        android:visibility="gone"
         app:srcCompat="@android:color/black" />
 
     <Button
@@ -71,8 +91,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/buttonCreate"
+        android:layout_alignTop="@+id/fragmentButtonCreate"
         android:layout_marginStart="65dp"
+        android:visibility="gone"
         android:text="Feed" />
 
 </RelativeLayout>

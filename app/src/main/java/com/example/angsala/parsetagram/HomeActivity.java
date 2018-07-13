@@ -34,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
 
     inputDescription = (EditText) findViewById(R.id.inputDescription);
     buttonRefresh = (Button) findViewById(R.id.buttonRefresh);
-    buttonCreate = (Button) findViewById(R.id.buttonCreate);
+    buttonCreate = (Button) findViewById(R.id.fragmentButtonCreate);
 
     buttonRefresh.setOnClickListener(
         new View.OnClickListener() {

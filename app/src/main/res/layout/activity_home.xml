@@ -17,7 +17,7 @@
         android:text="Refresh" />
 
     <Button
-        android:id="@+id/buttonCreate"
+        android:id="@+id/fragmentButtonCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
