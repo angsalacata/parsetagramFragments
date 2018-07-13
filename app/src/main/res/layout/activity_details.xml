@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailsActivity">
+
+    <ImageView
+        android:id="@+id/imvDetailsImage"
+        android:layout_width="match_parent"
+        android:layout_height="284dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="54dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@android:color/black" />
+
+    <TextView
+        android:id="@+id/txtvDetailsDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imvDetailsImage"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/txtvCreatedAt"
+        android:layout_width="218dp"
+        android:layout_height="37dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/txtvDetailsDescription"
+        android:layout_marginLeft="5dp"
+        android:gravity="left|center"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/txtvUsername"
+        android:layout_width="143dp"
+        android:layout_height="54dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:gravity="left|center_vertical"
+        android:text="TextView" />
+</RelativeLayout>
