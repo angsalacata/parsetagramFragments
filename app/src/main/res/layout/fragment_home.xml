@@ -11,10 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="59dp"
-        android:layout_marginStart="87dp"
+        android:layout_marginEnd="13dp"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <Button
@@ -22,9 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="37dp"
-        android:layout_marginEnd="64dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="33dp"
         android:text="Create" />
 
 
@@ -34,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="137dp"
+        android:layout_marginBottom="157dp"
         android:gravity="top"
         android:imeOptions="actionSend" />
 
@@ -44,7 +43,7 @@
         android:layout_height="243dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="97dp"
         app:srcCompat="@android:color/black" />
 
 

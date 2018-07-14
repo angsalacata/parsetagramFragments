@@ -45,11 +45,11 @@ public class HomeFragment extends Fragment {
   // private Button buttonRefresh;
   private Button buttonCreate;
   private ImageView testImage;
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    // this is from the codepath, capture intent article
-    public final String APP_TAG = "MyParsetagram";
-    public String photoFilename = "photo.jpg";
-    File photofile;
+  static final int REQUEST_IMAGE_CAPTURE = 1;
+  // this is from the codepath, capture intent article
+  public final String APP_TAG = "MyParsetagram";
+  public String photoFilename = "photo.jpg";
+  File photofile;
 
   // TODO: Rename and change types of parameters
   private String mParam1;
@@ -98,46 +98,41 @@ public class HomeFragment extends Fragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    //inflating views in fragment
+    // inflating views in fragment
     inputDescription = (EditText) getActivity().findViewById(R.id.fragmentInputDescription);
     buttonCreate = (Button) getActivity().findViewById(R.id.fragmentButtonCreate);
     testImage = (ImageView) getActivity().findViewById(R.id.fragmentTestGettingCamera);
 
+    buttonCreate.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            // instance objects for createPosts
+            final String description = inputDescription.getText().toString();
+            final ParseUser currentUser = ParseUser.getCurrentUser();
 
-
-      buttonCreate.setOnClickListener(
-              new View.OnClickListener() {
+            final File file = getPhotoFileUri(photoFilename);
+            final ParseFile picture = new ParseFile(file);
+            // this ParseFile has to be saved
+            picture.saveInBackground(
+                new SaveCallback() {
                   @Override
-                  public void onClick(View view) {
-                      // instance objects for createPosts
-                      final String description = inputDescription.getText().toString();
-                      final ParseUser currentUser = ParseUser.getCurrentUser();
-
-                      final File file = getPhotoFileUri(photoFilename);
-                      final ParseFile picture = new ParseFile(file);
-                      // this ParseFile has to be saved
-                      picture.saveInBackground(
-                              new SaveCallback() {
-                                  @Override
-                                  public void done(ParseException e) {
-                                      createPosts(description, picture, currentUser);
-                                  }
-                              });
+                  public void done(ParseException e) {
+                    createPosts(description, picture, currentUser);
                   }
-              });
+                });
+          }
+        });
 
-
-
-      // button to take pictures, it is a floating action button
-      FloatingActionButton camera = (FloatingActionButton) getActivity().findViewById(R.id.fab);
-      camera.setOnClickListener(
-              new View.OnClickListener() {
-                  @Override
-                  public void onClick(View view) {
-                      dispatchTakePictureIntent();
-                  }
-              });
-
+    // button to take pictures, it is a floating action button
+    FloatingActionButton camera = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+    camera.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            dispatchTakePictureIntent();
+          }
+        });
   }
 
   // TODO: Rename method, update argument and hook method into UI event
@@ -146,17 +141,6 @@ public class HomeFragment extends Fragment {
       mListener.onFragmentInteraction(uri);
     }
   }
-
-//  @Override
-//  public void onAttach(Context context) {
-//    super.onAttach(context);
-//    if (context instanceof OnFragmentInteractionListener) {
-//      mListener = (OnFragmentInteractionListener) context;
-//    } else {
-//      throw new RuntimeException(
-//          context.toString() + " must implement OnFragmentInteractionListener");
-//    }
-//  }
 
   @Override
   public void onDetach() {
@@ -180,32 +164,29 @@ public class HomeFragment extends Fragment {
     void onFragmentInteraction(Uri uri);
   }
 
+  // start Camera
 
-
-  //start Camera
-
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        photofile = getPhotoFileUri(photoFilename);
-        Uri fileProvider =
-                FileProvider.getUriForFile(
-                        getActivity(), "com.codepath.fileprovider", photofile);
-        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
+  private void dispatchTakePictureIntent() {
+    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    photofile = getPhotoFileUri(photoFilename);
+    Uri fileProvider =
+        FileProvider.getUriForFile(getActivity(), "com.codepath.fileprovider", photofile);
+    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
+    if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+      startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
     }
+  }
 
-
-    private File getPhotoFileUri(String photoFilename) {
-        File mediaStorageDir = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), APP_TAG);
-        // create storage directory if not in existence
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
-            Log.d(APP_TAG, "failed to create directory");
-        }
-        File file = new File(mediaStorageDir.getPath() + File.separator + photoFilename);
-        return file;
+  private File getPhotoFileUri(String photoFilename) {
+    File mediaStorageDir =
+        new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), APP_TAG);
+    // create storage directory if not in existence
+    if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
+      Log.d(APP_TAG, "failed to create directory");
     }
+    File file = new File(mediaStorageDir.getPath() + File.separator + photoFilename);
+    return file;
+  }
 
   private void createPosts(String description, ParseFile imageFile, ParseUser user) {
     Post newPost = new Post();
@@ -230,21 +211,21 @@ public class HomeFragment extends Fragment {
         });
   }
 
-    // use this to trigger that the file was loaded
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-       super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
-            Log.d(TAG, "successfully saved photo");
-            // this will still load the pic into an imageview
-            Bitmap image = BitmapFactory.decodeFile(photofile.getAbsolutePath());
+  // use this to trigger that the file was loaded
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
+      Log.d(TAG, "successfully saved photo");
+      // this will still load the pic into an imageview
+      Bitmap image = BitmapFactory.decodeFile(photofile.getAbsolutePath());
 
-            testImage = (ImageView) getActivity().findViewById(R.id.fragmentTestGettingCamera);
-            Toast.makeText(getActivity(), "Picture was taken", Toast.LENGTH_SHORT).show();
-            testImage.setImageBitmap(image);
+      testImage = (ImageView) getActivity().findViewById(R.id.fragmentTestGettingCamera);
+      Toast.makeText(getActivity(), "Picture was taken", Toast.LENGTH_SHORT).show();
+      testImage.setImageBitmap(image);
 
-        } else {
-            Toast.makeText(getActivity(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
-        }
+    } else {
+      Toast.makeText(getActivity(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
     }
+  }
 }

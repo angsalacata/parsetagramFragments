@@ -49,8 +49,6 @@ public class HomeTimelineActivity extends AppCompatActivity {
     return true;
   }
 
-
-
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
@@ -79,7 +77,7 @@ public class HomeTimelineActivity extends AppCompatActivity {
 
     ParseObject.registerSubclass(Post.class);
 
-    //identifying fragment by id
+    // identifying fragment by id
 
     inputDescription = (EditText) findViewById(R.id.inputDescription);
     // buttonRefresh = (Button) findViewById(R.id.buttonRefresh);
@@ -97,7 +95,6 @@ public class HomeTimelineActivity extends AppCompatActivity {
       startActivity(logIn_intent);
       finish();
     }
-
 
     buttonCreate.setOnClickListener(
         new View.OnClickListener() {
@@ -125,7 +122,7 @@ public class HomeTimelineActivity extends AppCompatActivity {
           @Override
           public void onClick(View view) {
             Intent feedIntent = new Intent(HomeTimelineActivity.this, FeedActivity.class);
-           // startActivity(feedIntent);
+            // startActivity(feedIntent);
           }
         });
 
@@ -142,13 +139,14 @@ public class HomeTimelineActivity extends AppCompatActivity {
     bottomNavigation();
   }
 
-  //Work with fragments, this should hopefully go to the feed
-  public void bottomNavigation(){
-    BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-//    final FragmentManager fragmentManager = getSupportFragmentManager();
-//    final Fragment fragmentFeed = new FeedFragment();
+  // Work with fragments, this should hopefully go to the feed
+  public void bottomNavigation() {
+    BottomNavigationView bottomNavigationView =
+        (BottomNavigationView) findViewById(R.id.bottom_navigation);
+    //    final FragmentManager fragmentManager = getSupportFragmentManager();
+    //    final Fragment fragmentFeed = new FeedFragment();
 
-    //put a listener on bottom
+    // put a listener on bottom
     bottomNavigationView.setOnNavigationItemSelectedListener(
         new BottomNavigationView.OnNavigationItemSelectedListener() {
           @Override
@@ -161,7 +159,7 @@ public class HomeTimelineActivity extends AppCompatActivity {
                 return true;
               case R.id.action_home:
                 FragmentTransaction fthome = getSupportFragmentManager().beginTransaction();
-                fthome.replace(R.id.your_placeholder,new HomeFragment());
+                fthome.replace(R.id.your_placeholder, new HomeFragment());
                 fthome.commit();
                 return true;
             }
@@ -219,16 +217,16 @@ public class HomeTimelineActivity extends AppCompatActivity {
   // use this to trigger that the file was loaded
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-//    if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-//      Log.d(TAG, "successfully saved photo");
-//      // this will still load the pic into an imageview
-//      Bitmap image = BitmapFactory.decodeFile(photofile.getAbsolutePath());
-//
-//      testImage = (ImageView) findViewById(R.id.imvTestGettingCamera);
-//      testImage.setImageBitmap(image);
-//
-//    } else {
-//      Toast.makeText(this, "Picture wasn't taken ACTIVITY!", Toast.LENGTH_SHORT).show();
-//    }
+    //    if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+    //      Log.d(TAG, "successfully saved photo");
+    //      // this will still load the pic into an imageview
+    //      Bitmap image = BitmapFactory.decodeFile(photofile.getAbsolutePath());
+    //
+    //      testImage = (ImageView) findViewById(R.id.imvTestGettingCamera);
+    //      testImage.setImageBitmap(image);
+    //
+    //    } else {
+    //      Toast.makeText(this, "Picture wasn't taken ACTIVITY!", Toast.LENGTH_SHORT).show();
+    //    }
   }
 }
